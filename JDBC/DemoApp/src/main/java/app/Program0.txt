@@ -1,0 +1,32 @@
+package app;
+
+import java.sql.Statement;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+
+public class Program {
+    
+    public static void main(String[] args) throws Exception {
+        //step 1: connection to the database;
+        Connection con = DriverManager.getConnection("jdbc:mysql://DAC13.local/cdac","root", "password");
+
+        //step 2: Create a statement i.e (Statement(),PreparedStatement(),CallableStatement())
+        Statement statement1 = con.createStatement();
+
+        //step3 : fire the query using statement;
+        ResultSet rs = statement1.executeQuery(" select empno,ename,job,sal,deptno from emp");
+
+        while (rs.next()) {
+            System.out.printf("%f %s %s %f %f \n",rs.getDouble(1),rs.getString(2),rs.getString(3),rs.getDouble(4),rs.getDouble(5));
+        }
+
+        //step4 : Close all the connections.
+        rs.close();
+        statement1.close();
+        con.close();
+
+    }
+
+}
+
